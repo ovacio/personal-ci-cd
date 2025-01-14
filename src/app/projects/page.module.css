@@ -1,0 +1,33 @@
+.cards {
+  flex-wrap: wrap;
+}
+
+.card {
+  background-color: var(--mantine-color-body);
+  width: 100%;
+  max-width: 350px;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  padding: var(--mantine-spacing-sm) var(--mantine-spacing-lg);
+  border-top: 1px solid light-dark(var(--mantine-color-gray-2), var(--mantine-color-dark-5));
+}
+
+.title {
+  font-family:
+    Greycliff CF,
+    var(--mantine-font-family);
+  line-height: 1;
+}
+
+.spoiler button {
+  color: var(--mantine-color-violet-4);
+}
+
+.spoiler button:hover,
+.icon_refresh:hover {
+  text-decoration: none;
+  color: var(--mantine-color-primary-3);
+}

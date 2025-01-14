@@ -1,0 +1,46 @@
+stages:
+  - install
+  - build
+  - deploy
+
+cache:
+  key: $CI_COMMIT_REF_SLUG
+  paths:
+    - node_modules/
+
+install:
+  stage: install
+  image: node:21
+  script:
+    - rm -rf node_modules .next
+    - npm install
+
+build:
+  stage: build
+  image: node:21
+  script:
+    - npm run build
+  dependencies:
+    - install
+  artifacts:
+    paths:
+      - .next
+      - build
+  only:
+    - master
+
+deploy:
+  stage: deploy
+  image: docker:latest
+  services:
+    - docker:dind
+  script:
+    - export DOCKER_HOST=unix:///var/run/docker.sock
+    - docker-compose -f docker-compose.yml up -d --build
+  only:
+    - master
+  environment:
+    name: production
+    url: http://localhost:3000
+  before_script:
+    - docker info
